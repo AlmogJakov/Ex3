@@ -1,10 +1,14 @@
 from typing import List
 
 from GraphAlgoInterface import GraphAlgoInterface
+from GraphInterface import GraphInterface
 
 
 class GraphAlgo(GraphAlgoInterface):
     def __init__(self):
+        pass
+
+    def get_graph(self) -> GraphInterface:
         pass
 
     def load_from_json(self, file_name: str) -> bool:
