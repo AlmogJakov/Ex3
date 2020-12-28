@@ -33,7 +33,11 @@ class DiGraph(GraphInterface):
         if self.ni.get(id1).__contains__(id2) and self.graph.get(id1).get(id2) == weight:
             return False
         self.ni.get(id1).update({id2: weight})
+<<<<<<< HEAD
         self.revers_ni.get(id2).append(id1)
+=======
+        self.revers_ni.get(id2).update({id1: weight})
+>>>>>>> 30c3855fec693ba53540ed828137de543b12a5da
         self.edge_size = self.edge_size + 1
         self.mc = self.mc + 1
         return True
