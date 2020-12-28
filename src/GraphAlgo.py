@@ -2,14 +2,15 @@ from typing import List
 
 from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
+from src.DiGraph import DiGraph
 
 
 class GraphAlgo(GraphAlgoInterface):
-    def __init__(self):
-        pass
+    def __init__(self, g: DiGraph = DiGraph()):
+        self.DiGraph = g
 
     def get_graph(self) -> GraphInterface:
-        pass
+        return self.DiGraph
 
     def load_from_json(self, file_name: str) -> bool:
         pass

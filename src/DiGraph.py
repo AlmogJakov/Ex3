@@ -5,8 +5,8 @@ from src.NodeData import NodeData
 class DiGraph(GraphInterface):
     def __init__(self):
         self._graph = {}  # key = node key. value = node object
-        self._ni = {}  # key = node key. value = node neighbors dictionaries -> key = neighbor-key. value = weight
-        self._niRevers = {}  # key = node key. value = node neighbors keys (reversed) [tuple]
+        self._ni = {}  # key = node key. value = (node neighbors dictionaries ->) key = neighbor-key. value = weight
+        self._niRevers = {}  # key = node key. value = tuple list of node neighbors keys (with reversed edges)
         self._edgeSize = 0
         self._mc = 0
 
@@ -33,7 +33,7 @@ class DiGraph(GraphInterface):
                 return
                 self._graph.get(id1).update({id2: weight})
         else:
-            self._graph.get(id1).update({id2: weight})
+            self._ni.get(id1).update({id2: weight})
             self._niRevers.get(id2).append(id1)
             self._edgeSize = self._edgeSize + 1
         self._mc = self._mc + 1
@@ -43,8 +43,10 @@ class DiGraph(GraphInterface):
             return False
         new_node = NodeData()
         new_node.key = node_id
-        node_id.pos = pos
         self._graph.update({node_id: new_node})
+        self._graph.get(node_id).pos = pos
+        self._ni.update({node_id: {}})
+        self._niRevers.update({node_id: list()})
         return True
 
     def remove_node(self, node_id: int) -> bool:
