@@ -73,10 +73,51 @@ class TestGraphAlgo(unittest.TestCase):
     def test_shortest_path(self):
         graph = create_graph()
         graph_algo = GraphAlgo(graph)
-        self.assertEquals(graph_algo.shortest_path(1, 7)[0], 13)
-        self.assertEquals(graph_algo.shortest_path(1, 10)[0], -1)
-        self.assertEquals(graph_algo.shortest_path(10, 13)[0], 0)
-        self.assertEquals(graph_algo.shortest_path(7, 6)[0], 14)
+        result = ""
+        self.assertEqual(graph_algo.shortest_path(1, 7)[0], 13)
+        self.assertEqual(graph_algo.shortest_path(1, 10)[0], -1)
+        self.assertEqual(graph_algo.shortest_path(10, 13)[0], 0)
+        self.assertEqual(graph_algo.shortest_path(7, 6)[0], 14)
+        result = None
+        directions = graph_algo.shortest_path(1, 7)[1]
+        if directions is not None:
+            result = ""
+            for n in directions:
+                result = result + str(n.key) + ", "
+        # print(result)
+        self.assertEqual(result, "1, 2, 3, 7, ")
+        result = None
+        directions = graph_algo.shortest_path(1, 10)[1]
+        if directions is not None:
+            result = ""
+            for n in directions:
+                result = result + str(n.key) + ", "
+        # print(result)
+        self.assertEqual(result, None)
+        result = None
+        directions = graph_algo.shortest_path(14, 9)[1]
+        if directions is not None:
+            result = ""
+            for n in directions:
+                result = result + str(n.key) + ", "
+        # print(result)
+        self.assertEqual(result, None)
+        result = None
+        directions = graph_algo.shortest_path(10, 13)[1]
+        if directions is not None:
+            result = ""
+            for n in directions:
+                result = result + str(n.key) + ", "
+        # print(result)
+        self.assertEqual(result, "10, 12, 13, ")
+        result = None
+        directions = graph_algo.shortest_path(7, 6)[1]
+        if directions is not None:
+            result = ""
+            for n in directions:
+                result = result + str(n.key) + ", "
+        # print(result)
+        self.assertEqual(result, "7, 4, 5, 6, ")
 
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
 from typing import List
 from queue import PriorityQueue
-
 from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
 from DiGraph import DiGraph, NodeData
@@ -21,11 +20,25 @@ class GraphAlgo(GraphAlgoInterface):
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if not self.DiGraph.graph.__contains__(id1) or not self.DiGraph.graph.__contains__(id2):
-            return -1, list()
+            return -1, None
+        path_list = list()
         if id1 == id2:
-            return 0, (id1,)
-        path_len = self.dijkstra(id1, id2, {})
-        return path_len, list()
+            path_list.append(id1)
+            return 0, path_list
+        path_len, path_dict = self.dijkstra(id1, id2, {})
+        if path_dict is None:
+            return -1, None
+        src_node = self.DiGraph.graph.get(id1)
+        dst_node = self.DiGraph.graph.get(id2)
+        node_pointer = dst_node
+        path_list.append(node_pointer)
+        while True:
+            node_pointer = path_dict.get(node_pointer)
+            path_list.append(node_pointer)
+            if node_pointer == src_node:
+                break
+        path_list.reverse()
+        return path_len, path_list
 
     def connected_component(self, id1: int) -> list:
         pass
@@ -36,7 +49,7 @@ class GraphAlgo(GraphAlgoInterface):
     def plot_graph(self) -> None:
         pass
 
-    def dijkstra(self, src, dst, the_path):
+    def dijkstra(self, src, dst, the_path) -> (float, dict):
         pq = PriorityQueue()
         # node that we already check
         ch = {}  # key=int, val=node_data
@@ -58,12 +71,9 @@ class GraphAlgo(GraphAlgoInterface):
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         n2.tag = w_key1 + w
-                    n2 = self.DiGraph.graph.get(key2)
-                    w_key1 = n1.tag
-                    if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         ch.update({key2: n2})
                         the_path.update({n2: n1})
                         pq.put(n2)
         if flag:
-            return ch.get(dst).tag - 1
-        return -1
+            return ch.get(dst).tag - 1, the_path
+        return -1, None

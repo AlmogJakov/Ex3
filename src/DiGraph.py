@@ -30,8 +30,6 @@ class DiGraph(GraphInterface):
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
         if not self.graph.__contains__(id1) or not self.graph.__contains__(id2) or weight < 0 or id1 == id2:
             return False
-        if self.ni.get(id1).__contains__(id2) and self.graph.get(id1).get(id2) == weight:
-            return False
         self.ni.get(id1).update({id2: weight})
         self.revers_ni.get(id2).append(id1)
         self.edge_size = self.edge_size + 1
