@@ -1,8 +1,9 @@
 from typing import List
+from queue import PriorityQueue
 
 from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
-from src.DiGraph import DiGraph
+from DiGraph import DiGraph
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -29,3 +30,31 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         pass
+
+    def dijkstra(self, src, dest, the_path):
+        pq = PriorityQueue()
+        # node that we already check
+        ch = {}  # key=int, val=node_data
+        flag = False
+        nodeSrc = self.DiGraph.graph.get(src)
+        nodeSrc.tag = 1
+        pq.put(nodeSrc)
+        ch.update({src: nodeSrc})
+        while not pq.empty() and not flag:
+            n1 = pq.get()
+            key1 = n1.key
+            if key1 == dest:
+                flag = True
+            else:
+                ed = self.DiGraph.all_out_edges_of_node(key1)
+                for key2 in ed:
+                    w = ed.get(key2)
+                    n2 = self.DiGraph.graph.get(key2)
+                    wKey1 = n1.tag
+                    if not ch.__contains__(key2) or ch.get(key2).tag > wKey1 + w:
+                        ch.update({key2: n2})
+                        the_path.update({n2,n1})
+                        pq.put(n2)
+        if flag:
+            return ch.get(dest).tag - 1
+        return -1
