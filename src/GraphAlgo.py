@@ -36,10 +36,10 @@ class GraphAlgo(GraphAlgoInterface):
         # node that we already check
         ch = {}  # key=int, val=node_data
         flag = False
-        nodeSrc = self.DiGraph.graph.get(src)
-        nodeSrc.tag = 1
-        pq.put(nodeSrc)
-        ch.update({src: nodeSrc})
+        node_src = self.DiGraph.graph.get(src)
+        node_src.tag = 1
+        pq.put(node_src)
+        ch.update({src: node_src})
         while not pq.empty() and not flag:
             n1 = pq.get()
             key1 = n1.key
@@ -50,8 +50,8 @@ class GraphAlgo(GraphAlgoInterface):
                 for key2 in ed:
                     w = ed.get(key2)
                     n2 = self.DiGraph.graph.get(key2)
-                    wKey1 = n1.tag
-                    if not ch.__contains__(key2) or ch.get(key2).tag > wKey1 + w:
+                    w_key1 = n1.tag
+                    if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         ch.update({key2: n2})
                         the_path.update({n2,n1})
                         pq.put(n2)
