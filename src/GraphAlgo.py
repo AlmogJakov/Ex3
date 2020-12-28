@@ -54,16 +54,13 @@ class GraphAlgo(GraphAlgoInterface):
                 ed = self.DiGraph.all_out_edges_of_node(key1)
                 for key2 in ed:
                     w = ed.get(key2)
-<<<<<<< HEAD
                     n2 = self.DiGraph.graph.get(key2, NodeData())
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         n2.tag = w_key1 + w
-=======
                     n2 = self.DiGraph.graph.get(key2)
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
->>>>>>> 30c3855fec693ba53540ed828137de543b12a5da
                         ch.update({key2: n2})
                         the_path.update({n2: n1})
                         pq.put(n2)
