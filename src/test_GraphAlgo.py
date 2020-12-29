@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 from DiGraph import DiGraph
-from src.GraphAlgo import GraphAlgo
+from GraphAlgo import GraphAlgo
 
 
 def create_graph() -> DiGraph():
@@ -123,6 +123,7 @@ class TestGraphAlgo(unittest.TestCase):
     def test_load_from_json(self):
         ga = GraphAlgo()
         a = ga.load_from_json("check_file")
+        self.assertTrue(a)
 
     def test_save_to_json(self):
         g = DiGraph()

@@ -5,6 +5,7 @@ from GraphInterface import GraphInterface
 from DiGraph import DiGraph, NodeData
 import json
 import queue
+import logging
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -35,7 +36,8 @@ class GraphAlgo(GraphAlgoInterface):
                 g.add_edge(ed['src'], ed['dest'], ed['w'])
             self.DiGraph = g
             return True
-        except Exception:
+        except Exception as e:
+            logging.error('Failed.', exc_info=e)
             return False
 
     def save_to_json(self, file_name: str) -> bool:
@@ -55,7 +57,8 @@ class GraphAlgo(GraphAlgoInterface):
             with open(file_name, 'w') as outfile:
                 json.dump(g, outfile)
             return True
-        except Exception:
+        except Exception as e:
+            logging.error('Failed.', exc_info=e)
             return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
@@ -88,7 +91,7 @@ class GraphAlgo(GraphAlgoInterface):
         vis = set()
         for n in self.DiGraph.get_all_v():
             if not (n in vis):
-                print(n not in vis)
+                # print(n not in vis)
                 group = self.find_group(n, vis)
                 all_group.append(group)
         return all_group
