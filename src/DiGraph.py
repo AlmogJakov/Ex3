@@ -76,7 +76,7 @@ class DiGraph(GraphInterface):
         return True
 
     def __repr__(self):
-        return 'Graph: |V|={0}|, |E|={1}'.format(len(self.graph), self.edge_size)
+        return 'Graph: |V|={0} , |E|={1}'.format(len(self.graph), self.edge_size)
 
 
 class NodeData:
@@ -89,5 +89,5 @@ class NodeData:
         return self.tag < other.tag
 
     def __repr__(self):
-        return "'{0}'".format(self.key)
+        return "{0}".format(self.key)
 
