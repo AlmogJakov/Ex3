@@ -126,10 +126,10 @@ class TestGraphAlgo(unittest.TestCase):
 
     def test_save_to_json(self):
         g = DiGraph()
-        g.add_node(0, (0, 0, 0))
-        g.add_node(1, (0, 0, 0))
-        g.add_node(2, (0, 0, 0))
-        g.add_node(3, (0, 0, 0))
+        g.add_node(0, (0, 1, 2))
+        g.add_node(1, (3, 4, 5))
+        g.add_node(2, (6, 7, 8))
+        g.add_node(3, (7, 6, 5))
         for i in range(3):
             g.add_edge(i, i + 1, i + 2)
         ga = GraphAlgo(g)

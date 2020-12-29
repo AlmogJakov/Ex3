@@ -43,7 +43,7 @@ class GraphAlgo(GraphAlgoInterface):
                 for ed in edges:
                     g["Edges"].append({"src": n, "w": edges[ed], "dest": ed})
                 pos = nodes[n].pos
-                pos_str = str(pos[0]) + "," + str(pos[1]) + "," + str(pos[1])
+                pos_str = str(pos[0]) + "," + str(pos[1]) + "," + str(pos[2])
                 g["Nodes"].append({"pos": pos_str, "id": n})
             with open(file_name, 'w') as outfile:
                 json.dump(g, outfile)
