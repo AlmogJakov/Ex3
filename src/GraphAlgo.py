@@ -3,6 +3,7 @@ from queue import PriorityQueue
 from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
 from DiGraph import DiGraph, NodeData
+import json
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -13,10 +14,42 @@ class GraphAlgo(GraphAlgoInterface):
         return self.DiGraph
 
     def load_from_json(self, file_name: str) -> bool:
-        pass
+        try:
+            g = DiGraph()
+            load_file = open(file_name, 'r')
+            graph_dict = json.loads(load_file.read())
+            edges = graph_dict["Edges"]
+            nodes = graph_dict["Nodes"]
+            # add the nodes
+            for n in nodes:
+                id_n = n["id"]
+                pos_val = n["pos"].split(',')
+                pos_n = (float(pos_val[0]), float(pos_val[1]), float(pos_val[2]))
+                g.add_node(id_n, pos_n)
+            # add the edges
+            for ed in edges:
+                g.add_edge(ed['src'], ed['dest'], ed['w'])
+            self.DiGraph = g
+            return True
+        except Exception:
+            return False
 
     def save_to_json(self, file_name: str) -> bool:
-        pass
+        try:
+            g = {"Edges": [], "Nodes": []}
+            nodes = self.DiGraph.get_all_v()
+            for n in nodes:
+                edges = self.DiGraph.all_out_edges_of_node(n)
+                for ed in edges:
+                    g["Edges"].append({"src": n, "w": edges[ed], "dest": ed})
+                pos = nodes[n].pos
+                pos_str = str(pos[0]) + "," + str(pos[1]) + "," + str(pos[1])
+                g["Nodes"].append({"pos": pos_str, "id": n})
+            with open(file_name, 'w') as outfile:
+                json.dump(g, outfile)
+            return True
+        except Exception:
+            return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if not self.DiGraph.graph.__contains__(id1) or not self.DiGraph.graph.__contains__(id2):

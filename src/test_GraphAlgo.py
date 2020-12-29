@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 from DiGraph import DiGraph
 from src.GraphAlgo import GraphAlgo
 
@@ -118,6 +119,21 @@ class TestGraphAlgo(unittest.TestCase):
                 result = result + str(n.key) + ", "
         # print(result)
         self.assertEqual(result, "7, 4, 5, 6, ")
+
+    def test_load_from_json(self):
+        ga = GraphAlgo()
+        a = ga.load_from_json("check_file")
+
+    def test_save_to_json(self):
+        g = DiGraph()
+        g.add_node(0, (0, 0, 0))
+        g.add_node(1, (0, 0, 0))
+        g.add_node(2, (0, 0, 0))
+        g.add_node(3, (0, 0, 0))
+        for i in range(3):
+            g.add_edge(i, i + 1, i + 2)
+        ga = GraphAlgo(g)
+        ga.save_to_json("check_file")
 
 
 if __name__ == '__main__':
