@@ -1,7 +1,9 @@
-from unittest import TestCase
+import unittest
+from DiGraph import DiGraph
+from src.GraphAlgo import GraphAlgo
 
 
-class TestDiGraph(TestCase):
+class TestDiGraph(unittest.TestCase):
     def test_v_size(self):
         self.fail()
 
@@ -28,3 +30,7 @@ class TestDiGraph(TestCase):
 
     def test_remove_edge(self):
         self.fail()
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -22,7 +22,10 @@ class DiGraph(GraphInterface):
         return self.graph
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        return self.revers_ni.get(id1)
+        edges = {}
+        for ni in self.revers_ni.get(id1):
+            edges.update({ni: self.ni.get(ni).get(id1)})
+        return edges
 
     def all_out_edges_of_node(self, id1: int) -> dict:
         return self.ni.get(id1)
@@ -75,6 +78,9 @@ class DiGraph(GraphInterface):
         self.ni.get(node_id1).pop(node_id2)
         return True
 
+    def __repr__(self):
+        return 'Graph: |V|={0}|, |E|={1}'.format(len(self.graph), self.edge_size)
+
 
 class NodeData:
     def __init__(self, key: int = -1, pos: tuple = (0, 0, 0), tag: int = 0):
@@ -84,4 +90,7 @@ class NodeData:
 
     def __lt__(self, other):
         return self.tag < other.tag
+
+    def __repr__(self):
+        return '{0}'.format(self.key)
 

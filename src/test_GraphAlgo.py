@@ -1,6 +1,5 @@
 import unittest
-from unittest import TestCase
-from DiGraph import DiGraph, NodeData
+from DiGraph import DiGraph
 from src.GraphAlgo import GraphAlgo
 
 
@@ -78,6 +77,7 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(graph_algo.shortest_path(1, 10)[0], -1)
         self.assertEqual(graph_algo.shortest_path(10, 13)[0], 0)
         self.assertEqual(graph_algo.shortest_path(7, 6)[0], 14)
+        self.assertEqual(graph_algo.shortest_path(10, 11)[0], 7.5)
         result = None
         directions = graph_algo.shortest_path(1, 7)[1]
         if directions is not None:

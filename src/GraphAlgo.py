@@ -23,7 +23,7 @@ class GraphAlgo(GraphAlgoInterface):
             return -1, None
         path_list = list()
         if id1 == id2:
-            path_list.append(id1)
+            path_list.append(self.DiGraph.graph.get(id1))
             return 0, path_list
         path_len, path_dict = self.dijkstra(id1, id2, {})
         if path_dict is None:
@@ -70,6 +70,8 @@ class GraphAlgo(GraphAlgoInterface):
                     n2 = self.DiGraph.graph.get(key2, NodeData())
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
+                        if not ch.__contains__(key2):
+                            n2.tag = 0
                         n2.tag = w_key1 + w
                         ch.update({key2: n2})
                         the_path.update({n2: n1})
