@@ -22,10 +22,7 @@ class DiGraph(GraphInterface):
         return self.graph
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        edges = {}
-        for ni in self.revers_ni.get(id1):
-            edges.update({ni: self.ni.get(ni).get(id1)})
-        return edges
+        return self.revers_ni.get(id1)
 
     def all_out_edges_of_node(self, id1: int) -> dict:
         return self.ni.get(id1)
@@ -34,7 +31,7 @@ class DiGraph(GraphInterface):
         if not self.graph.__contains__(id1) or not self.graph.__contains__(id2) or weight < 0 or id1 == id2:
             return False
         self.ni.get(id1).update({id2: weight})
-        self.revers_ni.get(id2).append(id1)
+        self.revers_ni.get(id2).update({id1: weight})
         self.edge_size = self.edge_size + 1
         self.mc = self.mc + 1
         return True
@@ -47,7 +44,7 @@ class DiGraph(GraphInterface):
         new_node.pos = pos
         self.graph.update({node_id: new_node})
         self.ni.update({node_id: {}})
-        self.revers_ni.update({node_id: list()})
+        self.revers_ni.update({node_id: {}})
         self.mc += self.mc
         return True
 
@@ -92,5 +89,5 @@ class NodeData:
         return self.tag < other.tag
 
     def __repr__(self):
-        return '{0}'.format(self.key)
+        return "'{0}'".format(self.key)
 

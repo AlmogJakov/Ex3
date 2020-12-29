@@ -89,9 +89,9 @@ class GraphAlgo(GraphAlgoInterface):
     def connected_components(self) -> List[list]:
         all_group = list()
         vis = set()
-        for n in self.DiGraph.get_all_v():
-            if not (n in vis):
-                # print(n not in vis)
+        for n1 in self.DiGraph.get_all_v():
+            n = self.DiGraph.graph.get(n1)
+            if n not in vis:
                 group = self.find_group(n, vis)
                 all_group.append(group)
         return all_group
