@@ -92,9 +92,8 @@ class GraphAlgo(GraphAlgoInterface):
         all_group = list()
         vis = set()
         for n1 in self.DiGraph.get_all_v():
-            n = self.DiGraph.graph.get(n1)
-            if n not in vis:
-                group = self.find_group(n.key, vis)
+            if n1 not in vis:
+                group = self.find_group(n1, vis)
                 all_group.append(group)
         return all_group
 
@@ -138,8 +137,9 @@ class GraphAlgo(GraphAlgoInterface):
         ni2 = self.is_connected_bfs(id1, self.DiGraph.revers_ni)
         for n1 in ni1:
             if ni2.__contains__(n1):
-                group.append(n1)
-                vis.add(n1)
+                group.append(n1.key)
+                vis.add(n1.key)
+        group.sort()
         return group
 
     def is_connected_bfs(self, src: int, ni: dict) -> set:
