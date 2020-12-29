@@ -3,28 +3,26 @@ import sys
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
-
 def check():
     """
-        Graph: |V|=4 , |E|=5
-        {0: 0: |edges out| 1 |edges in| 1, 1: 1: |edges out| 3 |edges in| 1, 2: 2: |edges out| 1 |edges in| 1, 3: 3: |edges out| 0 |edges in| 2}
-        {0: 1}
-        {0: 1.1, 2: 1.3, 3: 10}
-        (3.4, [0, 1, 2, 3])
-        [[0, 1], [2], [3]]
-        (3.4, [0, 1, 2, 3])
-        (inf, None)
-        4.244296649514735 [1, 9, 10, 11, 7]
-        20.546312400537253 [47, 46, 45, 44, 43, 42, 41, 40, 39, 15, 27, 26, 25, 17, 18, 19]
-        18.197159401343114 [20, 21, 32, 31, 30, 29, 38, 14, 13, 12, 11, 9, 1, 0, 2]
-        inf None
-        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-        [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]]
+    Graph: |V|=4 , |E|=5
+    {0: 0: score inf, 1: 1: score inf, 2: 2: score inf, 3: 3: score inf}
+    {0: 1}
+    {0: 1.1, 2: 1.3, 3: 10}
+    (11, [0, 1, 3])
+    [[0, 1], [2], [3]]
+    (2.8, [0, 1, 3])
+    (inf, None)
+    2.062180280059253 [1, 10, 7]
+    17.693921758901507 [47, 46, 44, 43, 42, 41, 40, 39, 15, 16, 17, 18, 19]
+    11.51061380461898 [20, 21, 32, 31, 30, 29, 14, 13, 3, 2]
+    inf None
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]]
     """
     check0()
     check1()
     check2()
-
 
 def check0():
     """
@@ -48,21 +46,19 @@ def check0():
     g_algo = GraphAlgo(g)
     print(g_algo.shortest_path(0, 3))
 
-
 def check1():
     """
        This function tests the naming (main methods of the GraphAlgo class, as defined in GraphAlgoInterface.
     :return:
     """
-    g_algo = GraphAlgo()  # init an empty graph - for the GraphAlgo
+    g_algo = GraphAlgo()        # init an empty graph - for the GraphAlgo
     file = "../data/T0.json"
-    g_algo.load_from_json(file)  # init a GraphAlgo from a json file
+    g_algo.load_from_json(file) # init a GraphAlgo from a json file
     print(g_algo.connected_components())
     print(g_algo.shortest_path(0, 3))
     print(g_algo.shortest_path(3, 1))
-    g_algo.save_to_json(file + '_saved')
+    g_algo.save_to_json(file+'_saved')
     g_algo.plot_graph()
-
 
 def check2():
     """ This function tests the naming, basic testing over A5 json file.
@@ -84,7 +80,6 @@ def check2():
     print(g_algo.connected_component(0))
     print(g_algo.connected_components())
     g_algo.plot_graph()
-
 
 if __name__ == '__main__':
     check()
