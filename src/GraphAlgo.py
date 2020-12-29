@@ -84,6 +84,8 @@ class GraphAlgo(GraphAlgoInterface):
         return path_len, path_list
 
     def connected_component(self, id1: int) -> list:
+        if not self.DiGraph.graph.__contains__(id1):
+            return None
         return self.find_group(id1, set())
 
     def connected_components(self) -> List[list]:
@@ -92,7 +94,7 @@ class GraphAlgo(GraphAlgoInterface):
         for n1 in self.DiGraph.get_all_v():
             n = self.DiGraph.graph.get(n1)
             if n not in vis:
-                group = self.find_group(n, vis)
+                group = self.find_group(n.key, vis)
                 all_group.append(group)
         return all_group
 
