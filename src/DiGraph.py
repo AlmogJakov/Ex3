@@ -83,7 +83,7 @@ class DiGraph(GraphInterface):
 
 
 class NodeData:
-    def __init__(self, key: int = -1, pos: tuple = (0, 0, 0), tag: int = 0):
+    def __init__(self, key: int = -1, pos: tuple = None, tag: int = 0):
         self.pos = pos
         self.key = key
         self.tag = tag

@@ -4,6 +4,7 @@ from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
 from DiGraph import DiGraph, NodeData
 import json
+import queue
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -23,9 +24,12 @@ class GraphAlgo(GraphAlgoInterface):
             # add the nodes
             for n in nodes:
                 id_n = n["id"]
-                pos_val = n["pos"].split(',')
-                pos_n = (float(pos_val[0]), float(pos_val[1]), float(pos_val[2]))
-                g.add_node(id_n, pos_n)
+                if n.__contains__("pos"):
+                    pos_val = n["pos"].split(',')
+                    pos_n = (float(pos_val[0]), float(pos_val[1]), float(pos_val[2]))
+                    g.add_node(id_n, pos_n)
+                else:
+                    g.add_node(id_n, None)
             # add the edges
             for ed in edges:
                 g.add_edge(ed['src'], ed['dest'], ed['w'])
@@ -43,8 +47,11 @@ class GraphAlgo(GraphAlgoInterface):
                 for ed in edges:
                     g["Edges"].append({"src": n, "w": edges[ed], "dest": ed})
                 pos = nodes[n].pos
-                pos_str = str(pos[0]) + "," + str(pos[1]) + "," + str(pos[2])
-                g["Nodes"].append({"pos": pos_str, "id": n})
+                if pos is None:
+                    g["Nodes"].append({"id": n})
+                else:
+                    pos_str = str(pos[0]) + "," + str(pos[1]) + "," + str(pos[2])
+                    g["Nodes"].append({"pos": pos_str, "id": n})
             with open(file_name, 'w') as outfile:
                 json.dump(g, outfile)
             return True
@@ -74,10 +81,17 @@ class GraphAlgo(GraphAlgoInterface):
         return path_len, path_list
 
     def connected_component(self, id1: int) -> list:
-        pass
+        return self.find_group(id1, set())
 
     def connected_components(self) -> List[list]:
-        pass
+        all_group = list()
+        vis = set()
+        for n in self.DiGraph.get_all_v():
+            if not (n in vis):
+                print(n not in vis)
+                group = self.find_group(n, vis)
+                all_group.append(group)
+        return all_group
 
     def plot_graph(self) -> None:
         pass
@@ -112,3 +126,28 @@ class GraphAlgo(GraphAlgoInterface):
         if flag:
             return ch.get(dst).tag - 1, the_path
         return -1, None
+
+    def find_group(self, id1: int, vis: set) -> list:
+        group = list()
+        ni1 = self.is_connected_bfs(id1, self.DiGraph.ni)
+        ni2 = self.is_connected_bfs(id1, self.DiGraph.revers_ni)
+        for n1 in ni1:
+            if ni2.__contains__(n1):
+                group.append(n1)
+                vis.add(n1)
+        return group
+
+    def is_connected_bfs(self, src: int, ni: dict) -> set:
+        vis = set()
+        q = queue.Queue()
+        current = self.DiGraph.graph.get(src)
+        vis.add(current)
+        q.put(current)
+        while not q.empty():
+            current = q.get()
+            for ed in ni.get(current.key):
+                n = self.DiGraph.graph.get(ed)
+                if not vis.__contains__(n):
+                    q.put(n)
+                    vis.add(n)
+        return vis
