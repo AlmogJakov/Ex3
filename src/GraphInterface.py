@@ -44,7 +44,6 @@ class GraphInterface:
         @param id2: The end node of the edge
         @param weight: The weight of the edge
         @return: True if the edge was added successfully, False o.w.
-
         Note: If the edge already exists or one of the nodes dose not exists the functions will do nothing
         """
         raise NotImplementedError
@@ -55,7 +54,6 @@ class GraphInterface:
         @param node_id: The node ID
         @param pos: The position of the node
         @return: True if the node was added successfully, False o.w.
-
         Note: if the node id already exists the node will not be added
         """
         raise NotImplementedError
@@ -65,7 +63,6 @@ class GraphInterface:
         Removes a node from the graph.
         @param node_id: The node ID
         @return: True if the node was removed successfully, False o.w.
-
         Note: if the node id does not exists the function will do nothing
         """
         raise NotImplementedError
@@ -76,7 +73,6 @@ class GraphInterface:
         @param node_id1: The start node of the edge
         @param node_id2: The end node of the edge
         @return: True if the edge was removed successfully, False o.w.
-
         Note: If such an edge does not exists the function will do nothing
         """
         raise NotImplementedError
