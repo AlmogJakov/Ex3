@@ -66,7 +66,7 @@ class GraphAlgo(GraphAlgoInterface):
             return -1, None
         path_list = list()
         if id1 == id2:
-            path_list.append(self.DiGraph.graph.get(id1))
+            path_list.append(id1)
             return 0, path_list
         path_len, path_dict = self.dijkstra(id1, id2, {})
         if path_dict is None:
@@ -74,10 +74,10 @@ class GraphAlgo(GraphAlgoInterface):
         src_node = self.DiGraph.graph.get(id1)
         dst_node = self.DiGraph.graph.get(id2)
         node_pointer = dst_node
-        path_list.append(node_pointer)
+        path_list.append(node_pointer.key)
         while True:
             node_pointer = path_dict.get(node_pointer)
-            path_list.append(node_pointer)
+            path_list.append(node_pointer.key)
             if node_pointer == src_node:
                 break
         path_list.reverse()

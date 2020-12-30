@@ -89,5 +89,5 @@ class NodeData:
         return self.tag < other.tag
 
     def __repr__(self):
-        return "{0}".format(self.key)
+        return "'{0}'".format(self.key)
 
