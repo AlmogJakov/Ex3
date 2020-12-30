@@ -78,6 +78,13 @@ class DiGraph(GraphInterface):
     def __repr__(self):
         return 'Graph: |V|={0} , |E|={1}'.format(len(self.graph), self.edge_size)
 
+    def __eq__(self, other):
+        if not isinstance(other, DiGraph):
+            return NotImplemented
+        if self.edge_size != other.edge_size:
+            return False
+        return self.graph == other.graph and self.ni == other.ni and self.revers_ni == other.revers_ni
+
 
 class NodeData:
     def __init__(self, key: int = -1, pos: tuple = None, tag: int = 0):
@@ -90,4 +97,12 @@ class NodeData:
 
     def __repr__(self):
         return "'{0}'".format(self.key)
+
+    def __hash__(self):
+        return hash((self.pos, self.key, self.tag))
+
+    def __eq__(self, other):
+        if not isinstance(other, NodeData):
+            return NotImplemented
+        return self.pos == other.pos and self.key == other.key and self.tag == other.tag
 

@@ -120,12 +120,7 @@ class TestGraphAlgo(unittest.TestCase):
         # print(result)
         self.assertEqual(result, "7, 4, 5, 6, ")
 
-    def test_load_from_json(self):
-        ga = GraphAlgo()
-        a = ga.load_from_json("check_file")
-        self.assertTrue(a)
-
-    def test_save_to_json(self):
+    def test_save_and_load_from_json(self):
         g = DiGraph()
         g.add_node(0, (0, 1, 2))
         g.add_node(1, (3, 4, 5))
@@ -133,8 +128,18 @@ class TestGraphAlgo(unittest.TestCase):
         g.add_node(3, (7, 6, 5))
         for i in range(3):
             g.add_edge(i, i + 1, i + 2)
-        ga = GraphAlgo(g)
-        ga.save_to_json("check_file")
+        ga_original = GraphAlgo(g)
+        ga_original.save_to_json("check_file")
+        ga_loaded = GraphAlgo()
+        returned_bool = ga_loaded.load_from_json("check_file")
+        self.assertTrue(returned_bool)
+        self.assertEqual(ga_original, ga_loaded)
+        ga_original.DiGraph.graph.get(0).pos = (0, 1.1, 2)
+        self.assertNotEqual(ga_original, ga_loaded)
+        ga_original.DiGraph.graph.get(0).pos = (0, 1, 2)
+        self.assertEqual(ga_original, ga_loaded)
+        ga_original.DiGraph.remove_edge(0, 1)
+        self.assertNotEqual(ga_original, ga_loaded)
 
 
 if __name__ == '__main__':

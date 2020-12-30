@@ -35,6 +35,7 @@ class GraphAlgo(GraphAlgoInterface):
             for ed in edges:
                 g.add_edge(ed['src'], ed['dest'], ed['w'])
             self.DiGraph = g
+            load_file.close()
             return True
         except Exception as e:
             logging.error('Failed.', exc_info=e)
@@ -156,3 +157,8 @@ class GraphAlgo(GraphAlgoInterface):
                     q.put(n)
                     vis.add(n)
         return vis
+
+    def __eq__(self, other):
+        if not isinstance(other, GraphAlgo):
+            return NotImplemented
+        return self.DiGraph == other.DiGraph
