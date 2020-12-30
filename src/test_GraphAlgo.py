@@ -84,7 +84,7 @@ class TestGraphAlgo(unittest.TestCase):
         if directions is not None:
             result = ""
             for n in directions:
-                result = result + str(n.key) + ", "
+                result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, "1, 2, 3, 7, ")
         result = None
@@ -92,7 +92,7 @@ class TestGraphAlgo(unittest.TestCase):
         if directions is not None:
             result = ""
             for n in directions:
-                result = result + str(n.key) + ", "
+                result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, None)
         result = None
@@ -100,7 +100,7 @@ class TestGraphAlgo(unittest.TestCase):
         if directions is not None:
             result = ""
             for n in directions:
-                result = result + str(n.key) + ", "
+                result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, None)
         result = None
@@ -108,7 +108,7 @@ class TestGraphAlgo(unittest.TestCase):
         if directions is not None:
             result = ""
             for n in directions:
-                result = result + str(n.key) + ", "
+                result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, "10, 12, 13, ")
         result = None
@@ -116,7 +116,7 @@ class TestGraphAlgo(unittest.TestCase):
         if directions is not None:
             result = ""
             for n in directions:
-                result = result + str(n.key) + ", "
+                result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, "7, 4, 5, 6, ")
 
