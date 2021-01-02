@@ -23,7 +23,7 @@ class GraphAlgoInterface:
         """
         Saves the graph in JSON format to a file
         @param file_name: The path to the out file
-        @return: True if the save was successful, Flase o.w.
+        @return: True if the save was successful, False o.w.
         """
         raise NotImplementedError
 
@@ -32,7 +32,7 @@ class GraphAlgoInterface:
         Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
         @param id1: The start node id
         @param id2: The end node id
-        @return: The distance of the path, the path as a list
+        @return: The distance of the path, a list of the nodes ids that the path goes through
         Example:
 #      >>> from GraphAlgo import GraphAlgo
 #       >>> g_algo = GraphAlgo()
@@ -45,6 +45,8 @@ class GraphAlgoInterface:
 #        (1, [0, 1])
 #        >>> g_algo.shortestPath(0,2)
 #        (5, [0, 1, 2])
+        Notes:
+        If there is no path between id1 and id2, or one of them dose not exist the function returns (float('inf'),[])
         More info:
         https://en.wikipedia.org/wiki/Dijkstra's_algorithm
         """
@@ -55,6 +57,8 @@ class GraphAlgoInterface:
         Finds the Strongly Connected Component(SCC) that node id1 is a part of.
         @param id1: The node id
         @return: The list of nodes in the SCC
+        Notes:
+        If the graph is None or id1 is not in the graph, the function should return an empty list []
         """
         raise NotImplementedError
 
@@ -62,6 +66,8 @@ class GraphAlgoInterface:
         """
         Finds all the Strongly Connected Component(SCC) in the graph.
         @return: The list all SCC
+        Notes:
+        If the graph is None the function should return an empty list []
         """
         raise NotImplementedError
 
