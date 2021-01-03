@@ -3,6 +3,7 @@ from queue import PriorityQueue
 from GraphAlgoInterface import GraphAlgoInterface
 from GraphInterface import GraphInterface
 from DiGraph import DiGraph, NodeData
+import matplotlib.pyplot as plt
 import json
 import queue
 import logging
@@ -85,7 +86,7 @@ class GraphAlgo(GraphAlgoInterface):
         return path_len, path_list
 
     def connected_component(self, id1: int) -> list:
-        if not self.DiGraph.graph.__contains__(id1):
+        if self.DiGraph.graph.__contains__(id1):
             return None
         return self.find_group(id1, set())
 
@@ -99,7 +100,33 @@ class GraphAlgo(GraphAlgoInterface):
         return all_group
 
     def plot_graph(self) -> None:
-        pass
+        nodes = self.DiGraph.get_all_v()
+        if len(nodes) == 0:  # the graph is empty
+            plt.axes()
+            plt.show()
+        elif nodes[0].pos is not None:
+            x_val = []
+            y_val = []
+            for i in nodes.values():
+                x_val.append(i.pos[0])
+                y_val.append(i.pos[1])
+            ax = plt.axes()
+
+            ax.plot(x_val, y_val, "o")
+
+            ed = []
+            for key1, n in nodes.items():
+                for key2 in self.DiGraph.all_out_edges_of_node(key1):
+                    a = (n.pos, self.DiGraph.graph.get(key2).pos)
+                    ed.append(a)
+
+            for src, dest in ed:
+                ax.annotate('', xy=(dest[0], dest[1]), xytext=(src[0], src[1]), ha='center',
+                            arrowprops={'arrowstyle': '->'})
+
+            plt.show()
+        else:  # when there isn't pos to nodes
+            pass
 
     def dijkstra(self, src, dst, the_path) -> (float, dict):
         pq = PriorityQueue()
