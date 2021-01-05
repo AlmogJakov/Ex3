@@ -1,4 +1,3 @@
-from cmath import sqrt
 import math
 from typing import List
 from queue import PriorityQueue
@@ -89,7 +88,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def connected_component(self, id1: int) -> list:
         if self.DiGraph.graph.__contains__(id1):
-            return None
+            return []
         return self.find_group(id1, set())
 
     def connected_components(self) -> List[list]:
@@ -109,6 +108,7 @@ class GraphAlgo(GraphAlgoInterface):
         if len(nodes) == 0:  # the graph is empty
             plt.axes()
             plt.show()
+            return
 
         x_val = []
         y_val = []
@@ -132,7 +132,7 @@ class GraphAlgo(GraphAlgoInterface):
                 max_x, max_y = max(x_val), max(y_val)
                 min_x, min_y = min(x_val), min(y_val)
                 mid = ((max_x + min_x) / 2, (max_y + min_y) / 2)
-                radios = (((max_x - min_x) * 1.1) ** 2 + ((max_y - min_y) * 1.1) ** 2)**(0.5) / 2
+                radios = (((max_x - min_x) * 1.1) ** 2 + ((max_y - min_y) * 1.1) ** 2) ** 0.5 / 2
             else:
                 mid = (2, 2)
                 radios = 1
@@ -140,6 +140,8 @@ class GraphAlgo(GraphAlgoInterface):
             alpha = 360 / len(node_without_pos)
             list_nodes = self.connected_components()
             i = 0
+
+            # add position to nodes without position
             for group in list_nodes:
                 for n in group:
                     if node_without_pos.__contains__(n):
@@ -163,7 +165,6 @@ class GraphAlgo(GraphAlgoInterface):
                 i2 = id_n.index(key2)
                 a = (key1, (x_val[i1], y_val[i1]), (x_val[i2], y_val[i2]))
                 ed.append(a)
-        print()
 
         for n, src, dest in ed:
             ax.annotate('', xy=(float(dest[0]), float(dest[1])), xytext=(float(src[0]), float(src[1])), ha='center',
