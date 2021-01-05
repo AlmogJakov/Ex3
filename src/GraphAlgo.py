@@ -1,3 +1,5 @@
+from cmath import sqrt
+import math
 from typing import List
 from queue import PriorityQueue
 from GraphAlgoInterface import GraphAlgoInterface
@@ -101,32 +103,72 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         nodes = self.DiGraph.get_all_v()
+        has_pos = False
+        has_not_pos = False
+
         if len(nodes) == 0:  # the graph is empty
             plt.axes()
             plt.show()
-        elif nodes[0].pos is not None:
-            x_val = []
-            y_val = []
-            for i in nodes.values():
+
+        x_val = []
+        y_val = []
+        id_n = []
+        node_without_pos = set()
+
+        for i in nodes.values():
+            if i.pos is not None:
                 x_val.append(i.pos[0])
                 y_val.append(i.pos[1])
-            ax = plt.axes()
+                id_n.append(i.key)
+                has_pos = True
+            else:
+                node_without_pos.add(i.key)
+                has_not_pos = True
 
-            ax.plot(x_val, y_val, "o")
+        if has_pos and not has_not_pos:
+            self.print_graph(x_val, y_val, id_n)
+        else:
+            if has_pos:
+                max_x, max_y = max(x_val), max(y_val)
+                min_x, min_y = min(x_val), min(y_val)
+                mid = ((max_x + min_x) / 2, (max_y + min_y) / 2)
+                radios = (((max_x - min_x) * 1.1) ** 2 + ((max_y - min_y) * 1.1) ** 2)**(0.5) / 2
+            else:
+                mid = (2, 2)
+                radios = 1
 
-            ed = []
-            for key1, n in nodes.items():
-                for key2 in self.DiGraph.all_out_edges_of_node(key1):
-                    a = (n.pos, self.DiGraph.graph.get(key2).pos)
-                    ed.append(a)
+            alpha = 360 / len(node_without_pos)
+            list_nodes = self.connected_components()
+            i = 0
+            for group in list_nodes:
+                for n in group:
+                    if node_without_pos.__contains__(n):
+                        id_n.append(n)
+                        x = (radios * math.sin(math.radians(i * alpha))) + mid[0]
+                        x_val.append(x)
+                        y = (radios * math.cos(math.radians(i * alpha))) + mid[1]
+                        y_val.append(y)
+                        i += 1
+            self.print_graph(x_val, y_val, id_n)
 
-            for src, dest in ed:
-                ax.annotate('', xy=(dest[0], dest[1]), xytext=(src[0], src[1]), ha='center',
-                            arrowprops={'arrowstyle': '->'})
+    def print_graph(self, x_val, y_val, id_n):
+        ax = plt.axes()
+        nodes = self.DiGraph.get_all_v()
+        ax.plot(x_val, y_val, "o")
 
-            plt.show()
-        else:  # when there isn't pos to nodes
-            pass
+        ed = []
+        for key1, n in nodes.items():
+            for key2 in self.DiGraph.all_out_edges_of_node(key1):
+                i1 = id_n.index(key1)
+                i2 = id_n.index(key2)
+                a = (key1, (x_val[i1], y_val[i1]), (x_val[i2], y_val[i2]))
+                ed.append(a)
+        print()
+
+        for n, src, dest in ed:
+            ax.annotate('', xy=(float(dest[0]), float(dest[1])), xytext=(float(src[0]), float(src[1])), ha='center',
+                        arrowprops={'arrowstyle': '->'})
+        plt.show()
 
     def dijkstra(self, src, dst, the_path) -> (float, dict):
         pq = PriorityQueue()
