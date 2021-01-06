@@ -69,6 +69,12 @@ def create_graph() -> DiGraph():
 
 
 class TestGraphAlgo(unittest.TestCase):
+    def test_get_graph(self):
+        graph_algo = GraphAlgo()
+        self.assertEqual(graph_algo, GraphAlgo())
+        graph_algo = GraphAlgo(create_graph())
+        self.assertEqual(graph_algo.get_graph(), create_graph())
+
     def test_shortest_path(self):
         graph = create_graph()
         graph_algo = GraphAlgo(graph)
@@ -129,6 +135,26 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(ga_original, ga_loaded)
         ga_original.DiGraph.remove_edge(0, 1)
         self.assertNotEqual(ga_original, ga_loaded)
+
+    def test_connected_component(self):
+        graph = create_graph()
+        graph_algo = GraphAlgo(graph)
+        self.assertEqual(graph_algo.connected_component(0), [0])
+        self.assertEqual(graph_algo.connected_component(7), [1, 2, 3, 4, 5, 6, 7, 8, 9])
+        self.assertEqual(graph_algo.connected_component(10), [10])
+        self.assertEqual(graph_algo.connected_component(20), [])
+
+    def test_connected_components(self):
+        graph_algo = GraphAlgo()
+        self.assertEqual(graph_algo.connected_components(), [])
+        graph = create_graph()
+        graph_algo = GraphAlgo(graph)
+        self.assertEqual(graph_algo.connected_components(), [[0], [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                             [10], [11], [12], [13], [14]])
+
+    def test_plot_graph(self):
+        # https://stackoverflow.com/questions/27948126/how-can-i-write-unit-tests-against-code-that-uses-matplotlib
+        pass
 
 
 if __name__ == '__main__':

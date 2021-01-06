@@ -30,6 +30,13 @@ class DiGraph(GraphInterface):
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
         if not self.graph.__contains__(id1) or not self.graph.__contains__(id2) or weight < 0 or id1 == id2:
             return False
+        if self.ni.get(id1).__contains__(id2):
+            if self.ni.get(id1).get(id2) == weight:
+                return False
+            self.ni.get(id1).update({id2: weight})
+            self.revers_ni.get(id2).update({id1: weight})
+            self.mc = self.mc + 1
+            return True
         self.ni.get(id1).update({id2: weight})
         self.revers_ni.get(id2).update({id1: weight})
         self.edge_size = self.edge_size + 1
@@ -46,7 +53,7 @@ class DiGraph(GraphInterface):
         self.graph.update({node_id: new_node})
         self.ni.update({node_id: {}})
         self.revers_ni.update({node_id: {}})
-        self.mc += self.mc
+        self.mc += 1
         return True
 
     def remove_node(self, node_id: int) -> bool:
@@ -63,6 +70,7 @@ class DiGraph(GraphInterface):
             self.ni.get(node).pop(node_id)
             self.mc = self.mc + 1
         self.revers_ni.pop(node_id, None)
+        self.graph.pop(node_id)
         self.mc = self.mc + 1
         return True
 
