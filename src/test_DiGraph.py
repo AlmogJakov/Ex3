@@ -140,13 +140,13 @@ class TestDiGraph(unittest.TestCase):
         self.assertEqual(graph.mc, 31)
         graph.add_edge(9, 14, 4)
         self.assertEqual(graph.e_size(), 16)
-        self.assertEqual(graph.mc, 32)
+        self.assertEqual(graph.mc, 31)
         graph.add_edge(1, 4, -1)
         self.assertEqual(graph.e_size(), 16)
-        self.assertEqual(graph.mc, 32)
+        self.assertEqual(graph.mc, 31)
         graph.add_edge(1, 4, 2)
         self.assertEqual(graph.e_size(), 17)
-        self.assertEqual(graph.mc, 33)
+        self.assertEqual(graph.mc, 32)
 
     def test_add_node(self):
         graph = create_graph()
