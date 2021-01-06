@@ -66,14 +66,14 @@ class GraphAlgo(GraphAlgoInterface):
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if not self.DiGraph.graph.__contains__(id1) or not self.DiGraph.graph.__contains__(id2):
-            return -1, None
+            return float('inf'), []  # -1, None
         path_list = list()
         if id1 == id2:
             path_list.append(id1)
             return 0, path_list
         path_len, path_dict = self.dijkstra(id1, id2, {})
         if path_dict is None:
-            return -1, None
+            return float('inf'), [] # -1, None
         src_node = self.DiGraph.graph.get(id1)
         dst_node = self.DiGraph.graph.get(id2)
         node_pointer = dst_node
@@ -87,11 +87,13 @@ class GraphAlgo(GraphAlgoInterface):
         return path_len, path_list
 
     def connected_component(self, id1: int) -> list:
-        if self.DiGraph.graph.__contains__(id1):
+        if self.DiGraph is None or not self.DiGraph.graph.__contains__(id1):
             return []
         return self.find_group(id1, set())
 
     def connected_components(self) -> List[list]:
+        if self.DiGraph is None:
+            return []
         all_group = list()
         vis = set()
         for n1 in self.DiGraph.get_all_v():
@@ -108,7 +110,7 @@ class GraphAlgo(GraphAlgoInterface):
         if len(nodes) == 0:  # the graph is empty
             plt.axes()
             plt.show()
-            return
+            return None
 
         x_val = []
         y_val = []
@@ -152,6 +154,7 @@ class GraphAlgo(GraphAlgoInterface):
                         y_val.append(y)
                         i += 1
             self.print_graph(x_val, y_val, id_n)
+            return None
 
     def print_graph(self, x_val, y_val, id_n):
         ax = plt.axes()
@@ -177,7 +180,7 @@ class GraphAlgo(GraphAlgoInterface):
         ch = {}  # key=int, val=node_data
         flag = False
         node_src = self.DiGraph.graph.get(src)
-        node_src.tag = 1
+        node_src.tag = 0
         pq.put(node_src)
         ch.update({src: node_src})
         while not pq.empty() and not flag:
@@ -193,13 +196,13 @@ class GraphAlgo(GraphAlgoInterface):
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         if not ch.__contains__(key2):
-                            n2.tag = 0
+                            n2.tag = -1
                         n2.tag = w_key1 + w
                         ch.update({key2: n2})
                         the_path.update({n2: n1})
                         pq.put(n2)
         if flag:
-            return ch.get(dst).tag - 1, the_path
+            return ch.get(dst).tag, the_path
         return -1, None
 
     def find_group(self, id1: int, vis: set) -> list:

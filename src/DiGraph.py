@@ -42,6 +42,7 @@ class DiGraph(GraphInterface):
         new_node = NodeData()
         new_node.key = node_id
         new_node.pos = pos
+        new_node.graph = self
         self.graph.update({node_id: new_node})
         self.ni.update({node_id: {}})
         self.revers_ni.update({node_id: {}})
@@ -91,11 +92,16 @@ class NodeData:
         self.pos = pos
         self.key = key
         self.tag = tag
+        self.graph: DiGraph = None
 
     def __lt__(self, other):
         return self.tag < other.tag
 
-    def __repr__(self):
+    def __repr__(self, g: DiGraph = None):
+        if self.graph is not None and self.graph.graph.__contains__(self.key):
+            return "{0}: |edges out| {1} |edges in| {2}".format(self.key,
+                                                                len(self.graph.all_out_edges_of_node(self.key)),
+                                                                len(self.graph.all_in_edges_of_node(self.key)))
         return "'{0}'".format(self.key)
 
     def __hash__(self):
@@ -105,4 +111,3 @@ class NodeData:
         if not isinstance(other, NodeData):
             return NotImplemented
         return self.pos == other.pos and self.key == other.key and self.tag == other.tag
-

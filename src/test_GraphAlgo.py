@@ -1,5 +1,4 @@
 import unittest
-from pathlib import Path
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
@@ -75,7 +74,7 @@ class TestGraphAlgo(unittest.TestCase):
         graph_algo = GraphAlgo(graph)
         result = ""
         self.assertEqual(graph_algo.shortest_path(1, 7)[0], 13)
-        self.assertEqual(graph_algo.shortest_path(1, 10)[0], -1)
+        self.assertEqual(graph_algo.shortest_path(1, 10)[0], float('inf'))
         self.assertEqual(graph_algo.shortest_path(10, 13)[0], 0)
         self.assertEqual(graph_algo.shortest_path(7, 6)[0], 14)
         self.assertEqual(graph_algo.shortest_path(10, 11)[0], 7.5)
@@ -87,22 +86,12 @@ class TestGraphAlgo(unittest.TestCase):
                 result = result + str(n) + ", "
         # print(result)
         self.assertEqual(result, "1, 2, 3, 7, ")
-        result = None
+        expected = []
         directions = graph_algo.shortest_path(1, 10)[1]
-        if directions is not None:
-            result = ""
-            for n in directions:
-                result = result + str(n) + ", "
-        # print(result)
-        self.assertEqual(result, None)
-        result = None
+        self.assertEquals(expected, directions)
+        expected = []
         directions = graph_algo.shortest_path(14, 9)[1]
-        if directions is not None:
-            result = ""
-            for n in directions:
-                result = result + str(n) + ", "
-        # print(result)
-        self.assertEqual(result, None)
+        self.assertEquals(expected, directions)
         result = None
         directions = graph_algo.shortest_path(10, 13)[1]
         if directions is not None:
