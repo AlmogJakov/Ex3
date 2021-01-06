@@ -94,10 +94,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(result, "1, 2, 3, 7, ")
         expected = []
         directions = graph_algo.shortest_path(1, 10)[1]
-        self.assertEquals(expected, directions)
+        self.assertEqual(expected, directions)
         expected = []
         directions = graph_algo.shortest_path(14, 9)[1]
-        self.assertEquals(expected, directions)
+        self.assertEqual(expected, directions)
         result = None
         directions = graph_algo.shortest_path(10, 13)[1]
         if directions is not None:
