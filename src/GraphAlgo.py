@@ -159,7 +159,10 @@ class GraphAlgo(GraphAlgoInterface):
     def print_graph(self, x_val, y_val, id_n):
         ax = plt.axes()
         nodes = self.DiGraph.get_all_v()
-        ax.plot(x_val, y_val, "o")
+        ax.plot(x_val, y_val, "-Dy")
+
+        for i in range(len(id_n)):
+            ax.text(x_val[i], y_val[i], id_n[i], fontsize=8, color='blue', ha='center')
 
         ed = []
         for key1, n in nodes.items():
