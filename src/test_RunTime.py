@@ -1,7 +1,6 @@
 import json
 import timeit
 import unittest
-from asyncio import sleep
 
 import networkx as nx
 
@@ -22,7 +21,7 @@ def load_to_nx(file_name):
 
 
 def check(file_name):
-    print(" * My graph *")
+    print(" * My graph python *")
 
     ga = GraphAlgo()
     ga.load_from_json(file_name)
@@ -96,8 +95,7 @@ def check(file_name):
             if not 0.0001 > shortest_list[i][0] - d > -0.0001:
                 b = True
 
-    print("\n\nmin_id = " + str(min_id))
-    print("max_connected = " + str(final_list))
+    print("\n\n\n")
 
     return b
 

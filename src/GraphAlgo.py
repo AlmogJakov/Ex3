@@ -210,8 +210,15 @@ class GraphAlgo(GraphAlgoInterface):
 
     def find_group(self, id1: int, vis: set) -> list:
         group = list()
-        ni1 = self.is_connected_bfs(id1, self.DiGraph.ni)
-        ni2 = self.is_connected_bfs(id1, self.DiGraph.revers_ni)
+        ni1 = []
+        ni2 = []
+        if len(self.DiGraph.ni.get(id1)) == 0 or len(self.DiGraph.revers_ni.get(id1)) == 0:
+            node = self.DiGraph.graph.get(id1)
+            ni1.append(node)
+            ni2.append(node)
+        else:
+            ni1 = self.is_connected_bfs(id1, self.DiGraph.ni)
+            ni2 = self.is_connected_bfs(id1, self.DiGraph.revers_ni)
         for n1 in ni1:
             if ni2.__contains__(n1):
                 group.append(n1.key)
