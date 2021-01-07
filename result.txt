@@ -1,0 +1,111 @@
+
+
+
+ ==== Graph with 10 node ====
+ * My graph python *
+Time for connected_components function:  0.0005942000000001002
+Time for shortest_path function:  0.0002946999999999811
+Time for connected_component function:  0.0004972799999999999
+
+ * networkx graph *
+Time for connected_components function:  0.00025540000000012775
+Time for shortest_path function:  0.00007331999999999894
+
+ * My graph java *
+Time for connected_components function: 0.000293001
+Time for shortest_path function: 0.00056417997
+Time for connected_component function: 0.00028436
+
+
+
+
+
+ ==== Graph with 100 node ====
+ * My graph python *
+Time for connected_components function:  0.001981900000000092
+Time for shortest_path function:  0.0010557200000000043
+Time for connected_component function:  0.0016813600000000317
+
+ * networkx graph *
+Time for connected_components function:  0.000849099999999936
+Time for shortest_path function:  0.0002409399999999895
+
+ * My graph java *
+Time for connected_components function: 0.0030648
+Time for shortest_path function: 0.0017081797
+Time for connected_component function: 0.00165848
+
+
+
+
+ ==== Graph with 1000 node ====
+ * My graph python *
+Time for connected_components function:  0.03784389999999993
+Time for shortest_path function:  0.015198120000000027
+Time for connected_component function:  0.01890176000000001
+
+ * networkx graph *
+Time for connected_components function:  0.01673340000000012
+Time for shortest_path function:  0.006139160000000032
+
+ * My graph java *
+Time for connected_components function: 0.0195719
+Time for shortest_path function: 0.00407458
+Time for connected_component function: 0.01634356
+
+
+
+
+
+ ==== Graph with 10 thousand node ====
+ * My graph python *
+Time for connected_components function:  2.4122590000000006
+Time for shortest_path function:  0.23013791999999994
+Time for connected_component function:  0.39631979999999983
+
+ * networkx graph *
+Time for connected_components function:  0.12647010000000058
+Time for shortest_path function:  0.0820356799999999
+
+ * My graph java *
+Time for connected_components function: 1.0951132
+Time for shortest_path function: 0.03395426
+Time for connected_component function: 0.073640995
+
+
+
+
+
+ ==== Graph with 20 thousand node ====
+ * My graph python  *
+Time for connected_components function:  6.9506784999999995
+Time for shortest_path function:  0.4937435600000001
+Time for connected_component function:  1.0127263199999998
+
+ * networkx graph *
+Time for connected_components function:  0.5788565999999982
+Time for shortest_path function:  0.28731249999999947
+
+ * My graph java *
+Time for connected_components function: 3.9451715
+Time for shortest_path function: 0.10260912
+Time for connected_component function: 0.32009065
+
+
+
+
+
+ ==== Graph with 30 thousand node ====
+ * My graph python *
+Time for connected_components function:  13.633267500000002
+Time for shortest_path function:  0.6348533199999998
+Time for connected_component function:  0.9757877199999996
+
+ * networkx graph *
+Time for connected_components function:  0.4305841999999984
+Time for shortest_path function:  0.29161458000000023
+
+ * My graph java *
+Time for connected_components function: 7.9217051
+Time for shortest_path function: 0.123528704
+Time for connected_component function: 0.35415363

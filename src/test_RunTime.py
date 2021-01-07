@@ -103,21 +103,39 @@ def check(file_name):
 
 
 class MyTestCase(unittest.TestCase):
+    def test_graph_with_10_nodes(self):
+        print(" ==== Graph with 10 node ====")
+        file_name = '../data/G_10_80_0.json'
+        b = check(file_name)
+        self.assertEqual(b, True)
+
     def test_graph_with_100_nodes(self):
-        print(" ==== Graph with 100 node ====")
-        file_name = '../data/graph_100'
+        print("\n ==== Graph with 100 node ====")
+        file_name = '../data/G_100_800_0.json'
+        b = check(file_name)
+        self.assertEqual(b, True)
+
+    def test_graph_with_1000_nodes(self):
+        print("\n ==== Graph with 1000 node ====")
+        file_name = '../data/G_1000_8000_0.json'
         b = check(file_name)
         self.assertEqual(b, True)
 
     def test_graph_with_10_thousand_nodes(self):
         print("\n ==== Graph with 10 thousand node ====")
-        file_name = '../data/graph_10_thousand'
+        file_name = '../data/G_10000_80000_0.json'
         b = check(file_name)
         self.assertEqual(b, True)
 
-    def test_graph_with_million_nodes(self):
-        print("\n ==== Graph with million node ====")
-        file_name = '../data/graph_million'
+    def test_graph_with_20_thousand_nodes(self):
+        print("\n ==== Graph with 20 thousand node ====")
+        file_name = '../data/G_20000_160000_0.json'
+        b = check(file_name)
+        self.assertEqual(b, True)
+
+    def test_graph_with_30_thousand_nodes(self):
+        print("\n ==== Graph with 30 thousand node ====")
+        file_name = '../data/G_30000_240000_0.json'
         b = check(file_name)
         self.assertEqual(b, True)
 
