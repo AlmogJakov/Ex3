@@ -14,9 +14,19 @@ class GraphAlgo(GraphAlgoInterface):
     def __init__(self, g: DiGraph = DiGraph()):
         self.DiGraph = g
 
+    """
+    This method returns the underlying graph of which this class works.
+    """
     def get_graph(self) -> GraphInterface:
         return self.DiGraph
 
+    """
+    This method load a graph to this graph
+    algorithm. if the file was successfully loaded - the underlying graph of this
+    class will be changed (to the loaded one), in case the graph was not loaded
+    the original graph remain "as is". this method returns true - iff the graph
+    was successfully loaded.
+    """
     def load_from_json(self, file_name: str) -> bool:
         try:
             g = DiGraph()
@@ -43,6 +53,11 @@ class GraphAlgo(GraphAlgoInterface):
             logging.error('Failed.', exc_info=e)
             return False
 
+    """
+    This method saves this weighted directed
+    graph to the given file name in json format.
+    the method returns true - iff the file was successfully saved.
+    """
     def save_to_json(self, file_name: str) -> bool:
         try:
             g = {"Edges": [], "Nodes": []}
@@ -64,6 +79,11 @@ class GraphAlgo(GraphAlgoInterface):
             logging.error('Failed.', exc_info=e)
             return False
 
+    """
+    This method returns the shortest path (by weight).
+    in this method we using the algo dijkstra() that returns the shortest path distance.
+    the method returns the length and the path of the shortest path between src to dst
+    """
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if not self.DiGraph.graph.__contains__(id1) or not self.DiGraph.graph.__contains__(id2):
             return float('inf'), []  # -1, None
@@ -177,6 +197,47 @@ class GraphAlgo(GraphAlgoInterface):
                         arrowprops={'arrowstyle': '->'})
         plt.show()
 
+    """
+    This is an auxiliary method method for two methods: (We implemented both of the methods in the same way)
+        an method to returns the length of the shortest path between src to dst.
+        an method to returns a List of the shortest path between src to dst.
+     The method is based on dijkstra's algorithm.
+     In this algorithm we use a couple of data structures:
+        an dict to store the vertices we "visit".
+        an PriorityQueue to store the the neighbors of the Node on which iterations are performed (sorted).
+        an dict to store the Nodes for building the output path - each node with his parent.
+     Initially we add all the Nodes to the PriorityQueue with weight = -1, and src weight = 0.
+     using the dijkstra's algorithm we progress through the graph:  
+        while the PriorityQueue isn't empty:
+            mark the first Node on the queue (lowest weight value to source Node) as current.
+            delete the current Node from the PriorityQueue.
+            mark the current Node as visited (by adding the current Node to the dict).
+                We loop on the neighbors of the current Node (by their weight) as long as the queue isn't empty:
+                if a node that marked as visited founded  => remove from the neighbors PriorityQueue.
+                else =>
+                    remove from the neighbors PriorityQueue.
+                    Setting variable = the weight from the current Node to the source Node.
+                    update the weight of the current Node in case the variable is lower.
+                    add the current Node to the dict that stores the Nodes for the output path.
+                    // we store the Node as a key while his parent is the value. //
+                    // that's means that through a Node we can return to his parent (progress one level) //
+                    // (we need to store the shortest path = shortest levels to destination) //
+                    mark the Node as visited.
+     The method will stop when the PriorityQueue is empty.
+     At the end of the loop:
+        if the Flag == False => return null (-1 for length); // can't reach destination.
+        else => do nothing. // we reached destination Node.
+     Finally we build the path using the dict that stores the Nodes for the output path
+     // each Node is a key while his parent is the value. (so we can build levels from dst to src). //
+        start with destination Node:
+            while node!=null:
+                add the node to the output path List and progress to his parent through the dict.
+     - for returning a List of the shortest path between src to dst:
+        we reverse the List to get src->dst path instead of dst->src path.
+        then we return the List as requested.
+     - for returning the length of the shortest path:
+        we return the tag of the dst node.
+    """
     def dijkstra(self, src, dst, the_path) -> (float, dict):
         pq = PriorityQueue()
         # node that we already check
@@ -226,6 +287,23 @@ class GraphAlgo(GraphAlgoInterface):
         group.sort()
         return group
 
+    """
+    This method returns a set of all the vertices connected to src node using the BFS algorithm.
+    In this algorithm we use a data structure of a queue to store the vertices we "visit".
+    In addition, we use a data structure of a set to store the Nodes we "visited" before.
+    so that we don't loop this Nodes again.
+    Initially we use an iterator on the src Node in the graph and adding the Node to the queue.
+    using the BFS algorithm we progress through the neighbor list of the first Node in the queue:
+    mark the first Node on the queue as current.
+    delete the current Node from the queue. 
+    mark the current Node as visited (by adding the current Node to the set).
+    We loop on the neighbors of the current Node as long as the queue isn't empty:
+            if we found a node that marked as visited => do nothing.
+            else => we add the Node to the queue and mark the Node as visited.
+    The method will stop when the loop "visits" all the Nodes that
+    were connected to the first Node (where we started).
+    the method returns a set of all the vertices we visited
+    """
     def is_connected_bfs(self, src: int, ni: dict) -> set:
         vis = set()
         q = queue.Queue()
@@ -241,6 +319,10 @@ class GraphAlgo(GraphAlgoInterface):
                     vis.add(n)
         return vis
 
+    """
+    This method used to check equals between
+    objects of this class by comparing the variables.
+    """
     def __eq__(self, other):
         if not isinstance(other, GraphAlgo):
             return NotImplemented
