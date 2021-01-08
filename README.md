@@ -8,6 +8,9 @@ We will briefly explain the algorithms, the data structures we used and the comp
 	
 </table>
 
+-----
+
+
 <table align="center">
 	
 <h3>Check out Wiki page for comparisons of runtime algorithms & more information</h3>
@@ -19,7 +22,7 @@ We will briefly explain the algorithms, the data structures we used and the comp
 </td></tr>
 </table>
 
-
+-----
 
 <table align="center" width=100%>
 <tr width=100%><td>
@@ -54,6 +57,8 @@ Directed Weighted Graph illustration:
 
 </td></tr>
 </table>
+
+-----
 
 <h2> DiGraph Class (Represents a graph): </h2>
 
