@@ -144,8 +144,10 @@ The following functions can be performed:
   * Returning the shortest path length (by weight).  
   * Returning the vertices of the shortest path  
       In this function we used the dijkstra algorithm as explained above,  
-      That's because the algorithm scans the vertices in the order determined by their distance (by weight) from the initial vertex, And since we can attribute to each vertex 	the parent corresponding to it (which is closer [at one level] to the initial vertex), So inevitably when we reach the destined vertex we can build the shortest path (the path that weighs the least) and this is done by attributing each vertex to its "parent".  
+      the reason is that the algorithm scans the vertices in the order determined by their distance (by weight) from the initial vertex, And since we can attribute to each 
+      vertex the parent corresponding to it (which is closer [at one level] to the initial vertex), So inevitably when we reach the destined vertex we can build the shortest 
+      path (the path that weighs the least) and this is done by attributing each vertex to its "parent".  
 - Save the graph as an object to an json file.
 - Load the graph from an json file and initialize it.
-- Plot the graph - Implementation is by 'matplotlib' built-in calss in Python.
+- Plot the graph - Implementation is by 'matplotlib' built-in class in Python.
 
