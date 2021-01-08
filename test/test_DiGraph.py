@@ -1,5 +1,5 @@
 import unittest
-from DiGraph import DiGraph, NodeData
+from src.GraphAlgo import DiGraph, NodeData
 
 
 def create_graph() -> DiGraph():

@@ -1,9 +1,9 @@
 import math
 from typing import List
 from queue import PriorityQueue
-from GraphAlgoInterface import GraphAlgoInterface
-from GraphInterface import GraphInterface
-from DiGraph import DiGraph, NodeData
+from src.GraphAlgoInterface import GraphAlgoInterface
+from src.GraphInterface import GraphInterface
+from src.DiGraph import DiGraph, NodeData
 import matplotlib.pyplot as plt
 import json
 import queue
@@ -106,11 +106,24 @@ class GraphAlgo(GraphAlgoInterface):
         path_list.reverse()
         return path_len, path_list
 
+    """
+          This method returns a list of all the connected component of the key 'id1' using twice the BFS algorithm.
+          In this method we call to method find_graph() that using tow list,ni1 and ni2.
+          List ni1 get the weakly connection, all in edges of id1
+          List ni2 get the weakly connection, all out edges of id1
+          Then find the nodes that are in both and that is connected component of the key
+          the method returns a list of all the connected component of the key
+    """
     def connected_component(self, id1: int) -> list:
         if self.DiGraph is None or not self.DiGraph.graph.__contains__(id1):
             return []
         return self.find_group(id1, set())
 
+    """
+          This method returns a list of list of all the connected components in the graph.
+          In this method we call to method find_graph() we send vis that mark the node 
+          that already have a connected component and return all the connected components in the graph.
+    """
     def connected_components(self) -> List[list]:
         if self.DiGraph is None:
             return []
@@ -122,6 +135,34 @@ class GraphAlgo(GraphAlgoInterface):
                 all_group.append(group)
         return all_group
 
+    """
+           This method upload a position to the nodes and send them to print_graph().
+           First we put on the lists x_val, y_val, id_n, the position of the node that already have position.
+           If all the nodes have position the function send them straight to the method print_graph()
+           that print all the graph by using matplotlib library.
+           If there are nodes that has position and there are nodes with no position:
+              [+] we take tow points:
+                1. (x,y) - x is the max of the list x_val, y is the max of the list y_val.
+                2. (x,y) - x is the min of the list x_val, y is the min of the list y_val.
+              [+] Then we fine the middle between them:
+                mid(x,y) - x = (max_x + min_x)/2, y = (max_y + min_y)/2.
+              [+] Finally we find the radios of the circle:
+                radios = (((max_x - min_x)*1.1)^2 + ((max_y - min_y)*1.1)^2)^0.5 / 2
+                     (We multiply with 1.1 to increase the circle that there will be no collision of nodes) 
+           If there aren't nodes that has position and there are nodes with no position:
+              [+] We choose mid:
+                 mid(x,y) = (2,2).
+              [+] we choose radios:
+                 radios = 1.      
+           After we find the mid point and the radios now we find the alpha:
+              alpha = 360 / n .(n - number of the nodes that without position)
+           Then we can calculate the position of each nodes that without position:
+              For each point without location:
+                  x = (radios * sin(i * alpha) + mid[x]
+                  y = (radios * cos(i * alpha) + mid[y]
+                  ('i' is resized every time by 1 that for place the nodes evenly)  
+           Finally we send the the lists x_val, y_val, id_n, to the method print_graph().       
+    """
     def plot_graph(self) -> None:
         nodes = self.DiGraph.get_all_v()
         has_pos = False
@@ -176,6 +217,14 @@ class GraphAlgo(GraphAlgoInterface):
             self.print_graph(x_val, y_val, id_n)
             return None
 
+    """
+       This method print the graph by using the library matplotlib.
+       We get the lists x_val, y_val, id_n, that present the position of the node in the graph.
+       Function 'ax.plot(x_val, y_val, "-Dy")' we print on the graph squares at the position 
+       of the nodes.
+       List ed[] keep the trio (id of the node, pos of the node, pos of the node that the edge go to)
+       With function ax.annotate() we use the list ed[] to print the arrow. 
+    """
     def print_graph(self, x_val, y_val, id_n):
         ax = plt.axes()
         nodes = self.DiGraph.get_all_v()
@@ -269,6 +318,14 @@ class GraphAlgo(GraphAlgoInterface):
             return ch.get(dst).tag, the_path
         return -1, None
 
+    """
+       This method returns a list of all the connected component of the key 'id1' using twice the BFS algorithm.
+       In this method we using tow list,ni1 and ni2.
+       List ni1 get the weakly connection, all in edges of id1
+       List ni2 get the weakly connection, all out edges of id1
+       Then find the nodes that are in both and that is connected component of the key
+       the method returns a list of all the connected component of the key
+    """
     def find_group(self, id1: int, vis: set) -> list:
         group = list()
         ni1 = []
