@@ -94,7 +94,7 @@ The following functions can be performed:
 - Receiving a numeric variable that represents the number of MC (changes) in the class - easily done by a direct variable (stored in the class) updated with each action 
   of adding\deleting an vertex\edge in the graph or updating edge weight.
 
-<h2></h2>
+  
 <h3> NodeData Class (Represents a vertex) [Internal Class of DiGraph Class]: </h3>  
 In this class we were asked to implement a class that represents a vertex.  
 The following functions can be performed:
@@ -104,6 +104,7 @@ The following functions can be performed:
 - Return the pos - easily performed by accessing the appropriate value stored in the object.  
 - Return the DiGraph on which the vertex is associated - easily performed by accessing the appropriate value stored in the object.  
 
+<h2></h2>
 
 <h2> GraphAlgo Class (Represents the Graph Theory algorithms): </h2>
 
