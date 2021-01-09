@@ -1,0 +1,78 @@
+ ==== Graph with 1000 node ====
+ * My graph python *
+Time for connected_components function:  0.0116811
+Time for shortest_path function:  0.00713990000000001
+Time for connected_component function:  0.012077079999999985
+
+ * networkx graph *
+Time for connected_components function:  0.0054819000000000395
+Time for shortest_path function:  0.002063919999999997
+
+
+
+
+
+ ==== Graph with 100 node ====
+ * My graph python *
+Time for connected_components function:  0.0011684000000000694
+Time for shortest_path function:  0.0006831800000000054
+Time for connected_component function:  0.0011899000000000104
+
+ * networkx graph *
+Time for connected_components function:  0.0005228000000000455
+Time for shortest_path function:  0.00017044000000001613
+
+
+
+
+ ==== Graph with 10 node ====
+ * My graph python *
+Time for connected_components function:  0.00013439999999997898
+Time for shortest_path function:  7.499999999998064e-05
+Time for connected_component function:  0.00014715999999999064
+
+ * networkx graph *
+Time for connected_components function:  5.969999999999587e-05
+Time for shortest_path function:  1.929999999998877e-05
+
+
+
+
+
+ ==== Graph with 10 thousand node ====
+ * My graph python *
+Time for connected_components function:  0.125687
+Time for shortest_path function:  0.10796021999999998
+Time for connected_component function:  0.13161856
+
+ * networkx graph *
+Time for connected_components function:  0.06457740000000012
+Time for shortest_path function:  0.04013308000000002
+
+
+
+
+
+ ==== Graph with 20 thousand node ====
+ * My graph python *
+Time for connected_components function:  0.26474699999999984
+Time for shortest_path function:  0.13843563999999997
+Time for connected_component function:  0.2810347
+
+ * networkx graph *
+Time for connected_components function:  0.1272531999999993
+Time for shortest_path function:  0.06697965999999997
+
+
+
+
+
+ ==== Graph with 30 thousand node ====
+ * My graph python *
+Time for connected_components function:  0.6151422000000002
+Time for shortest_path function:  0.26963101999999994
+Time for connected_component function:  0.4487897
+
+ * networkx graph *
+Time for connected_components function:  0.20592079999999946
+Time for shortest_path function:  0.13598831999999988

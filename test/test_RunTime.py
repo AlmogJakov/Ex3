@@ -17,6 +17,7 @@ def load_to_nx(file_name):
 
     for e in graph_dict["Edges"]:
         dg.add_edge(e["src"], e["dest"], weight=e["w"])
+    load_file.close()
     return dg
 
 
