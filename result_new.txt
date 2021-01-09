@@ -8,6 +8,10 @@ Time for connected_component function:  0.012077079999999985
 Time for connected_components function:  0.0054819000000000395
 Time for shortest_path function:  0.002063919999999997
 
+ * My graph java *
+Time for connected_components function: 0.003097
+Time for shortest_path function: 0.000482
+Time for connected_component function: 0.002459
 
 
 
@@ -22,6 +26,11 @@ Time for connected_component function:  0.0011899000000000104
 Time for connected_components function:  0.0005228000000000455
 Time for shortest_path function:  0.00017044000000001613
 
+ * My graph java *
+Time for connected_components function: 0.000166
+Time for shortest_path function: 0.000029
+Time for connected_component function: 0.000132
+
 
 
 
@@ -34,6 +43,11 @@ Time for connected_component function:  0.00014715999999999064
  * networkx graph *
 Time for connected_components function:  5.969999999999587e-05
 Time for shortest_path function:  1.929999999998877e-05
+
+ * My graph java *
+Time for connected_components function: 0.000025
+Time for shortest_path function: 0.000011
+Time for connected_component function: 0.000012
 
 
 
@@ -49,6 +63,11 @@ Time for connected_component function:  0.13161856
 Time for connected_components function:  0.06457740000000012
 Time for shortest_path function:  0.04013308000000002
 
+ * My graph java *
+Time for connected_components function: 0.148768
+Time for shortest_path function: 0.009383
+Time for connected_component function: 0.042504
+
 
 
 
@@ -63,6 +82,11 @@ Time for connected_component function:  0.2810347
 Time for connected_components function:  0.1272531999999993
 Time for shortest_path function:  0.06697965999999997
 
+ * My graph java *
+Time for connected_components function: 0.402435
+Time for shortest_path function: 0.027451
+Time for connected_component function: 0.100610
+
 
 
 
@@ -76,3 +100,8 @@ Time for connected_component function:  0.4487897
  * networkx graph *
 Time for connected_components function:  0.20592079999999946
 Time for shortest_path function:  0.13598831999999988
+
+ * My graph java *
+Time for connected_components function: 1.676774
+Time for shortest_path function: 0.027892
+Time for connected_component function: 0.150458
