@@ -14,6 +14,7 @@ class DiGraph(GraphInterface):
     the graph. The implementation of the method is simply
     by returning 'graph' size.
     """
+
     def v_size(self) -> int:
         return len(self.graph)
 
@@ -22,6 +23,7 @@ class DiGraph(GraphInterface):
     The implementation of the method is simply by returning
     edge_size variable.
     """
+
     def e_size(self) -> int:
         return self.edge_size
 
@@ -30,6 +32,7 @@ class DiGraph(GraphInterface):
     in the graph. The implementation of the method is simply
     by returning 'MC' variable.
     """
+
     def get_mc(self) -> int:
         return self.mc
 
@@ -37,6 +40,7 @@ class DiGraph(GraphInterface):
     This method returns a dict with all the nodes in the graph.
     the method is implemented by returning 'graph' dict.
     """
+
     def get_all_v(self) -> dict:
         return self.graph
 
@@ -46,6 +50,7 @@ class DiGraph(GraphInterface):
     node_id isn't in the graph. The implementation of the method is simply by
     returning the 'revers_ni' dict values (neighbors) of id1.
     """
+
     def all_in_edges_of_node(self, id1: int) -> dict:
         return self.revers_ni.get(id1)
 
@@ -55,6 +60,7 @@ class DiGraph(GraphInterface):
     node_id isn't in the graph. The implementation of the method is simply by
     returning the 'ni' dict values (neighbors) of id1.
     """
+
     def all_out_edges_of_node(self, id1: int) -> dict:
         return self.ni.get(id1)
 
@@ -66,6 +72,7 @@ class DiGraph(GraphInterface):
     [dict] of the other Node and updates 'edge_size' variable.
     if any action performed the method updates 'MC' variable.
     """
+
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
         if not self.graph.__contains__(id1) or not self.graph.__contains__(id2) or weight < 0 or id1 == id2:
             return False
@@ -83,6 +90,7 @@ class DiGraph(GraphInterface):
     the method is implemented by adding the node to each dict in this class.
     if the method is implemented we update the MC (Mode Count).
     """
+
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if self.graph.__contains__(node_id):
             return False
@@ -105,6 +113,7 @@ class DiGraph(GraphInterface):
     afterwards the method removes the Node itself and update the MC (Mode Count) once again.
     finally the method returns True.
     """
+
     def remove_node(self, node_id: int) -> bool:
         if not self.graph.__contains__(node_id):
             return False
@@ -133,6 +142,7 @@ class DiGraph(GraphInterface):
     counting the edges and also update the MC (Mode Count).
     finally the method returns True.
     """
+
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
         if not self.graph.__contains__(node_id1) or not self.graph.__contains__(node_id2) \
                 or not self.ni.get(node_id1).__contains__(node_id2):
@@ -146,6 +156,7 @@ class DiGraph(GraphInterface):
     """
     This method prints objects of this class in the requested format.
     """
+
     def __repr__(self):
         return 'Graph: |V|={0} , |E|={1}'.format(len(self.graph), self.edge_size)
 
@@ -153,6 +164,7 @@ class DiGraph(GraphInterface):
     This method used to check equals between
     objects of this class by comparing the variables.
     """
+
     def __eq__(self, other):
         if not isinstance(other, DiGraph):
             return NotImplemented
@@ -162,22 +174,24 @@ class DiGraph(GraphInterface):
 
 
 class NodeData:
-    def __init__(self, key: int = -1, pos: tuple = None, tag: int = 0):
+    def __init__(self, key: int = -1, pos: tuple = None, tag: int = 0, graph: DiGraph = None):
         self.pos = pos
         self.key = key
         self.tag = tag
-        self.graph: DiGraph = None
+        self.graph = graph
 
     """
     This method implements a comparison of objects of this class type.
     mainly for the purpose of implementing the shortest_path method.
     """
+
     def __lt__(self, other):
         return self.tag < other.tag
 
     """
     This method prints objects of this class in the requested format.
     """
+
     def __repr__(self, g: DiGraph = None):
         if self.graph is not None and self.graph.graph.__contains__(self.key):
             return "{0}: |edges out| {1} |edges in| {2}".format(self.key,
@@ -189,6 +203,7 @@ class NodeData:
     This method is a hash method for the purpose of
     implementing the equals method in this class.
     """
+
     def __hash__(self):
         return hash((self.pos, self.key, self.tag))
 
@@ -196,6 +211,7 @@ class NodeData:
     This method used to check equals between
     objects of this class by comparing the variables.
     """
+
     def __eq__(self, other):
         if not isinstance(other, NodeData):
             return NotImplemented

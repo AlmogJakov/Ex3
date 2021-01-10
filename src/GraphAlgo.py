@@ -17,6 +17,7 @@ class GraphAlgo(GraphAlgoInterface):
     """
     This method returns the underlying graph of which this class works.
     """
+
     def get_graph(self) -> GraphInterface:
         return self.DiGraph
 
@@ -27,6 +28,7 @@ class GraphAlgo(GraphAlgoInterface):
     the original graph remain "as is". this method returns true - iff the graph
     was successfully loaded.
     """
+
     def load_from_json(self, file_name: str) -> bool:
         try:
             g = DiGraph()
@@ -58,6 +60,7 @@ class GraphAlgo(GraphAlgoInterface):
     graph to the given file name in json format.
     the method returns true - iff the file was successfully saved.
     """
+
     def save_to_json(self, file_name: str) -> bool:
         try:
             g = {"Edges": [], "Nodes": []}
@@ -84,6 +87,7 @@ class GraphAlgo(GraphAlgoInterface):
     in this method we using the algo dijkstra() that returns the shortest path distance.
     the method returns the length and the path of the shortest path between src to dst
     """
+
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if not self.DiGraph.graph.__contains__(id1) or not self.DiGraph.graph.__contains__(id2):
             return float('inf'), []  # -1, None
@@ -93,7 +97,7 @@ class GraphAlgo(GraphAlgoInterface):
             return 0, path_list
         path_len, path_dict = self.dijkstra(id1, id2, {})
         if path_dict is None:
-            return float('inf'), [] # -1, None
+            return float('inf'), []  # -1, None
         src_node = self.DiGraph.graph.get(id1)
         dst_node = self.DiGraph.graph.get(id2)
         node_pointer = dst_node
@@ -114,6 +118,7 @@ class GraphAlgo(GraphAlgoInterface):
           Then find the nodes that are in both and that is connected component of the key
           the method returns a list of all the connected component of the key
     """
+
     def connected_component(self, id1: int) -> list:
         if self.DiGraph is None or not self.DiGraph.graph.__contains__(id1):
             return []
@@ -124,6 +129,7 @@ class GraphAlgo(GraphAlgoInterface):
           In this method we call to method find_graph() we send vis that mark the node 
           that already have a connected component and return all the connected components in the graph.
     """
+
     def connected_components(self) -> List[list]:
         if self.DiGraph is None:
             return []
@@ -163,6 +169,7 @@ class GraphAlgo(GraphAlgoInterface):
                   ('i' is resized every time by 1 that for place the nodes evenly)  
            Finally we send the the lists x_val, y_val, id_n, to the method print_graph().       
     """
+
     def plot_graph(self) -> None:
         nodes = self.DiGraph.get_all_v()
         has_pos = False
@@ -220,15 +227,16 @@ class GraphAlgo(GraphAlgoInterface):
     """
        This method print the graph by using the library matplotlib.
        We get the lists x_val, y_val, id_n, that present the position of the node in the graph.
-       Function 'ax.plot(x_val, y_val, "-Dy")' we print on the graph squares at the position 
+       Function 'ax.plot(x_val, y_val, "Dy")' we print on the graph squares at the position 
        of the nodes.
        List ed[] keep the trio (id of the node, pos of the node, pos of the node that the edge go to)
        With function ax.annotate() we use the list ed[] to print the arrow. 
     """
+
     def print_graph(self, x_val, y_val, id_n):
         ax = plt.axes()
         nodes = self.DiGraph.get_all_v()
-        ax.plot(x_val, y_val, "-Dy")
+        ax.plot(x_val, y_val, "Dy")
 
         for i in range(len(id_n)):
             ax.text(x_val[i], y_val[i], id_n[i], fontsize=8, color='blue', ha='center')
@@ -287,6 +295,7 @@ class GraphAlgo(GraphAlgoInterface):
      - for returning the length of the shortest path:
         we return the tag of the dst node.
     """
+
     def dijkstra(self, src, dst, the_path) -> (float, dict):
         pq = PriorityQueue()
         # node that we already check
@@ -326,6 +335,7 @@ class GraphAlgo(GraphAlgoInterface):
        Then find the nodes that are in both and that is connected component of the key
        the method returns a list of all the connected component of the key
     """
+
     def find_group(self, id1: int, vis: set) -> list:
         group = list()
         ni1 = []
@@ -361,6 +371,7 @@ class GraphAlgo(GraphAlgoInterface):
     were connected to the first Node (where we started).
     the method returns a set of all the vertices we visited
     """
+
     def is_connected_bfs(self, src: int, ni: dict) -> set:
         vis = set()
         q = queue.Queue()
@@ -380,6 +391,7 @@ class GraphAlgo(GraphAlgoInterface):
     This method used to check equals between
     objects of this class by comparing the variables.
     """
+
     def __eq__(self, other):
         if not isinstance(other, GraphAlgo):
             return NotImplemented
