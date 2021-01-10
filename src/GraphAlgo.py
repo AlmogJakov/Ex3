@@ -3,11 +3,13 @@ from typing import List
 from queue import PriorityQueue
 from src.GraphAlgoInterface import GraphAlgoInterface
 from src.GraphInterface import GraphInterface
-from src.DiGraph import DiGraph, NodeData
+from src.DiGraph import DiGraph
 import matplotlib.pyplot as plt
 import json
 import queue
-import logging
+
+
+# import logging
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -51,9 +53,11 @@ class GraphAlgo(GraphAlgoInterface):
             self.DiGraph = g
             load_file.close()
             return True
-        except Exception as e:
-            logging.error('Failed.', exc_info=e)
+        except IOError:
             return False
+        # except Exception as e:
+        #     logging.error('Failed.', exc_info=e)
+        #     return False
 
     """
     This method saves this weighted directed
@@ -78,9 +82,11 @@ class GraphAlgo(GraphAlgoInterface):
             with open(file_name, 'w') as outfile:
                 json.dump(g, outfile)
             return True
-        except Exception as e:
-            logging.error('Failed.', exc_info=e)
+        except IOError:
             return False
+        # except Exception as e:
+        #     logging.error('Failed.', exc_info=e)
+        #     return False
 
     """
     This method returns the shortest path (by weight).
@@ -98,13 +104,13 @@ class GraphAlgo(GraphAlgoInterface):
         path_len, path_dict = self.dijkstra(id1, id2, {})
         if path_dict is None:
             return float('inf'), []  # -1, None
-        src_node = self.DiGraph.graph.get(id1)
-        dst_node = self.DiGraph.graph.get(id2)
+        src_node = id1
+        dst_node = id2
         node_pointer = dst_node
-        path_list.append(node_pointer.key)
+        path_list.append(node_pointer)
         while True:
             node_pointer = path_dict.get(node_pointer)
-            path_list.append(node_pointer.key)
+            path_list.append(node_pointer)
             if node_pointer == src_node:
                 break
         path_list.reverse()
@@ -314,14 +320,14 @@ class GraphAlgo(GraphAlgoInterface):
                 ed = self.DiGraph.all_out_edges_of_node(key1)
                 for key2 in ed:
                     w = ed.get(key2)
-                    n2 = self.DiGraph.graph.get(key2, NodeData())
+                    n2 = self.DiGraph.graph.get(key2)
                     w_key1 = n1.tag
                     if not ch.__contains__(key2) or ch.get(key2).tag > w_key1 + w:
                         if not ch.__contains__(key2):
                             n2.tag = -1
                         n2.tag = w_key1 + w
                         ch.update({key2: n2})
-                        the_path.update({n2: n1})
+                        the_path.update({n2.key: n1.key})
                         pq.put(n2)
         if flag:
             return ch.get(dst).tag, the_path

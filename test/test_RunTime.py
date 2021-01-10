@@ -33,7 +33,7 @@ def check(file_name):
     stop = timeit.default_timer()
     print('Time for connected_components function: ', stop - start)
 
-    max_connected = max(gc, key=len)
+    max_connected = max(gc, key=len).copy()
     min_id = min(max_connected)
 
     final_list = []
@@ -59,6 +59,8 @@ def check(file_name):
     for i in final_list:
         ga.connected_component(i)
 
+    # ga.plot_graph()
+
     stop = timeit.default_timer()
     print('Time for connected_component function: ', (stop - start) / 5)
 
@@ -83,18 +85,23 @@ def check(file_name):
     print('Time for shortest_path function: ', (stop - start) / 5)
 
     b = True
+    gc.sort(key=len)
+    gcn.sort(key=len)
 
-    if not len(gc) == len(gcn):
-        b = False
+    for i in range(len(gcn)):
+        if not len(gc[i]) == len(gcn[i]):
+            b = False
 
     for i in range(t):
+        i4 = 0
         for i1 in shortest_list_nx:
             d = 0
             for i2 in range(len(i1) - 1):
                 d += graph_nx[i1[i2]][i1[i2 + 1]]['weight']
 
-            if not 0.0001 > shortest_list[i][0] - d > -0.0001:
-                b = True
+            if not 0.0001 > shortest_list[i4][0] - d > -0.0001:
+                b = False
+            i4 += 1
 
     print("\n\n\n")
 
