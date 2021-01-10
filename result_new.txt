@@ -37,12 +37,12 @@ Time for connected_component function: 0.000132
  ==== Graph with 10 node ====
  * My graph python *
 Time for connected_components function:  0.00013439999999997898
-Time for shortest_path function:  7.499999999998064e-05
+Time for shortest_path function:  0.00007499999999998064
 Time for connected_component function:  0.00014715999999999064
 
  * networkx graph *
-Time for connected_components function:  5.969999999999587e-05
-Time for shortest_path function:  1.929999999998877e-05
+Time for connected_components function:  0.00005969999999999587
+Time for shortest_path function:  0.00001929999999998877
 
  * My graph java *
 Time for connected_components function: 0.000025
