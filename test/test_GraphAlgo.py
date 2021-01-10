@@ -70,6 +70,7 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(ga_original, ga_loaded)
         ga_original.DiGraph.remove_edge(0, 1)
         self.assertNotEqual(ga_original, ga_loaded)
+        self.assertEqual(False, ga_original.load_from_json("non_existing_graph"))
 
     def test_connected_component(self):
         graph = test_DiGraph.create_graph()
