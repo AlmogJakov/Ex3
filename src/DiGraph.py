@@ -122,11 +122,11 @@ class DiGraph(GraphInterface):
         ni_size = len(self.ni.get(node_id))
         self.ni.pop(node_id)
         self.edge_size = self.edge_size - ni_size
-        self.mc = self.mc + ni_size
+        # self.mc = self.mc + ni_size
         self.edge_size = self.edge_size - len(self.revers_ni.get(node_id))
         for node in self.revers_ni.get(node_id):
             self.ni.get(node).pop(node_id)
-            self.mc = self.mc + 1
+            # self.mc = self.mc + 1
         self.revers_ni.pop(node_id, None)
         self.graph.pop(node_id)
         self.mc = self.mc + 1

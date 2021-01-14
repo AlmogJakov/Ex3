@@ -94,11 +94,11 @@ class TestDiGraph(unittest.TestCase):
         graph.add_node(5)
         self.assertEqual(graph.mc, 31)
         graph.remove_node(5)
-        self.assertEqual(graph.mc, 35)
+        self.assertEqual(graph.mc, 32)
         graph.add_edge(6, 7, 15)
-        self.assertEqual(graph.mc, 35)
+        self.assertEqual(graph.mc, 32)
         graph.remove_edge(6, 7)
-        self.assertEqual(graph.mc, 36)
+        self.assertEqual(graph.mc, 33)
 
     def test_get_all_v(self):
         expected = {}
